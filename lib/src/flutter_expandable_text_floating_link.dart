@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 enum TrimType { lines, characters }
 enum SeparateLinkAlignment {left, center, right }
@@ -199,12 +200,23 @@ class _ExpandableTextState extends State<ExpandableText> {
           );
         }
         else{
+          MainAxisAlignment separateLinkAlignment;
+          switch (widget.separateLinkAlignment){
+            case SeparateLinkAlignment.left:{
+              separateLinkAlignment = MainAxisAlignment.start;}
+              break;
+            case SeparateLinkAlignment.center:{
+              separateLinkAlignment = MainAxisAlignment.center;}
+              break;
+            case SeparateLinkAlignment.right:{
+              separateLinkAlignment = MainAxisAlignment.end;}
+          }
           return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               RichText(text: textSpan),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: separateLinkAlignment,
                 children: [
                   RichText(text: _linkText)
                 ],)

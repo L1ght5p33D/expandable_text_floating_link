@@ -1,39 +1,56 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+expandable_text_floating_link adds a position option to `ExpandableText` so the link is more visible and aligned to content
 
-## Getting started
+### Usage
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
+---
 ```dart
-const like = 'sample';
+ExpandableText(
+                  "This is a long text This is a long text This is a long text This is a long text This is a long text This is a long text This is a long text This is a long text This is a long text This is a long text",
+                  separateLink: true,
+                  separateLinkAlignment: SeparateLinkAlignment.center
+                )
+
 ```
 
-## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+### Customization
+
+---
+
+You can customize all the attributes from ExpandableText like trimType lines or characters, the link text and style, an onPressed callback and more
+
+```dart
+ExpandableText(
+                     "This is a long text This is a long text This is a long text This is a long text This is a long text This is a long text This is a long text This is a long text This is a long text This is a long text",
+                     style: TextStyle(
+                         fontSize: 30.0,
+                         color: Colors.black
+                     ),
+                     trimType: TrimType.lines,
+                     trim: 2,
+                     readLessText: 'Less',
+                     readMoreText: 'Tap for more',
+                     linkTextStyle:  TextStyle(
+                         color: Colors.black,
+                         fontSize: ss.width*.03,
+                         fontWeight: FontWeight.bold),
+                     onLinkPressed: (expanded) {
+                       setState(() {
+                         textExpanded=true;
+                       });
+                     },
+                     separateLink: true,
+                     separateLinkPosition: SeparateLinkPosition.center
+                   )
+
+```
+
+### Support the Library
+
+You can support the library by staring in on Github and reporting any bugs you encounter.
+
