@@ -1,7 +1,4 @@
 library expandable_text_floating_link;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/flutter_expandable_text_floating_link.dart';
+
