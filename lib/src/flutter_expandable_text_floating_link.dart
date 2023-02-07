@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 enum TrimType { lines, characters }
-
+enum SeparateLinkAlignment {left, center, right }
 
 class ExpandableText extends StatefulWidget {
   /// Text to show
@@ -34,6 +34,10 @@ class ExpandableText extends StatefulWidget {
 
   final TextDirection textDirection;
 
+  final bool separateLink;
+
+  final SeparateLinkAlignment separateLinkAlignment;
+
   /// Callback function when a link is pressed
   ///
   /// Returns a boolean [true] is expanded and [false] is collapsed
@@ -51,6 +55,8 @@ class ExpandableText extends StatefulWidget {
         this.textAlign = TextAlign.left,
         this.textDirection = TextDirection.ltr,
         this.onLinkPressed,
+        this.separateLink = false,
+        this.separateLinkAlignment = SeparateLinkAlignment.left
       }) : super(key: key);
 
   @override
@@ -85,8 +91,7 @@ class _ExpandableTextState extends State<ExpandableText> {
             color: Colors.blue,
             fontSize: 12,
           ),
-      recognizer: TapGestureRecognizer()
-        ..onTap = _onLinkTextPressed,
+      recognizer: TapGestureRecognizer()..onTap = _onLinkTextPressed,
     );
     _text = TextSpan(
       text: widget.text,
@@ -162,7 +167,11 @@ class _ExpandableTextState extends State<ExpandableText> {
             break;
         }
 
+
+        TextSpan no_link_text = TextSpan();
+
         if (hasOverflow) {
+          // if (widget.separateLink == false) {
           textSpan = TextSpan(
             children: [
               TextSpan(
@@ -175,16 +184,33 @@ class _ExpandableTextState extends State<ExpandableText> {
                 style: _text.style,
               ),
               _ellipsisText,
-              _linkText,
+              widget.separateLink ?
+              no_link_text
+                  : _linkText,
             ],
           );
+
         } else {
           textSpan = _text;
         }
+        if (widget.separateLink == false) {
+          return RichText(
+            text: textSpan,
+          );
+        }
+        else{
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              RichText(text: textSpan),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  RichText(text: _linkText)
+                ],)
+            ],);
+        }
 
-        return RichText(
-          text: textSpan,
-        );
       }),
     );
   }
